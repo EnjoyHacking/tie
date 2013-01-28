@@ -1,0 +1,47 @@
+                              CLASS_PORT - TIE classification plug-in
+
+1 Description
+
+  This classifier uses as features source and destination port numbers for both TCP and UDP protocols.
+  Most protocols use a well-known server port, thus most signatures rely only on destination 
+  port. Moreover in some cases both port numbers are standard.
+  
+1.2 Signatures
+
+  The plugin relies on signatures imported by the CoralReef suite from CAIDA [1]. In details they are stored
+  into Application_ports_master.txt file. Refer to CoralReef documentation for more details [2].
+  
+1.3 Classification process
+
+  The plugin loads the signatures from the aforementioned file and stores them into a hash table.
+  When port ranges or more source-dest combinations are present into a signature, the parser creates
+  an entry for each of them. This approach occupies some memory, but speeds up the classification
+  process.    
+
+  The classification process of a session is very simple. Three lookups into the hash table are performed
+  considering different combinations:
+   - protocol and both source and destination ports 
+   - protocol and destination port only
+   - protocol and source port only
+  The lookup, if succesfull, will return the corresponding entry containing the application identifier.
+
+1.4 Training process
+
+  Training for this plugin is not currently available.
+
+2 Configuration file
+
+  This plugin doesn't have a configuration file.
+  
+3 Signature file
+
+  See CoralReef documentation [2].
+
+4 References
+
+  [1] CoralReef suite 
+      http://www.caida.org/tools/measurement/coralreef/
+      
+  [2] Signature format documentation
+      http://www.caida.org/tools/measurement/coralreef/doc/libsrc/CAIDA/doc/AppPorts.html
+      

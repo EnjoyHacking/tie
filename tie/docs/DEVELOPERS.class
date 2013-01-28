@@ -1,0 +1,99 @@
+
+                 Classifier Developer Manual (version 1.0.0-beta3)
+
+   WARNING: This document refers to a project in active development, so it
+   can undergo heavy and frequent changes. 
+   For updated documentation please see: tie.comics.unina.it
+
+Classification Plugins
+======================
+Each classifier is implemented as a plugin (a shared object) loaded at runtime.
+
+  Interface
+  ---------
+  
+   Inside TIE architecture a classifier has a standard structure as defined
+   in the plugins/plugin.h header file and reported here:
+
+    typedef struct classifier {
+         int (*disable) ();
+         int (*enable) ();
+         int (*load_signatures) (char *);
+         int (*train) (char *);
+         class_output *(*classify_session) (void *session);
+         int (*dump_statistics) (FILE *);
+         bool (*is_session_classifiable) (void *session);
+         int (*session_sign) (void *session, class_output *);
+
+         char *name;
+         u_int32_t *flags;
+    } classifier;
+
+   As shown, each classifier maintains its name and some flags about its
+   state. It also defines some standard functions to be used by the
+   Combiner and the Plugin Manager.
+
+   A brief description of each function follows:
+
+           function                           description                   
+   disable()                 disable and unload the classification plugin.  
+   enable()                  enables the classifier if all its              
+                             prerequisites are satisfied.                   
+   load_signatures()         load fingerprints needed for classification.     
+   train()                   execute classifier training using              
+                             pre-classification data.                       
+   classify_session()        classify current session.                      
+   dump_statistics()         print collected statistics on classification   
+                             results.                                       
+   is_session_classifiable() evaluate if the classifier has enough          
+                             information to classify the session.           
+   session_sign()            if needed extracts some extra information from 
+                             the session (only during training).            
+
+   All these functions are specialized by the particular classifier and
+   there are not imposed limitations on how them could be implemented.
+   Moreover, each plugin MUST export a class_init(classifier *) function to
+   be called, during TIE startup, by Plugin Manager. This function is
+   responsible of exporting all plugin methods and of assigning its name
+   (taken from enabled_plugins file).
+
+   Please refer to plugins/dummy/class_dummy.c for a more detailed
+   implementation guideline.
+
+  Template
+  --------
+
+   A dummy classification plugin is provided as a template for plugin
+   developers. It can be found in the src/plugins/dummy folder and is made
+   of the following files:
+
+        File                             Description                        
+                   contains a skeleton to start the implementation of all   
+   class_dummy.c   classifier methods (some of them don't need to be        
+                   modified)                                                
+   Makefile        contains the mandatory structure of a plugin Makefile    
+   README          contains an example documentation for a classification   
+                   plugin                                                   
+   VERSION         contains the version number of the plugin
+   
+   Here is reported the interesting part of the Makefile structure to be
+   used for a classification plugin:
+
+    . . .
+   
+    # Specify here additional OBJECTS needed by this plugin
+    OBJECTS +=
+
+    # Specify here additional linker flags needed by this plugin
+    LDFLAGS +=
+
+    # Specify here static libraries needed by this plugin
+    LIBS    :=
+
+    # Specify here files and folders to be copied to plugin destination folder togheter with the plugin.
+    # Each folder is recursively processed skipping hidden files/folders. 
+    # Each file will be copied in update mode (overwrite only if newer).
+    COPY    :=
+   
+    . . .
+

@@ -1,0 +1,162 @@
+# [DEBUG] options
+payload_dump_file=l7_payload.txt
+
+# packets-per-session limit
+# max_packets=10
+
+# http-* are subset of http, must be before
+protocol=http-dap 1 1
+protocol=http-freshdownload 1 2
+protocol=http-itunes 133 0
+protocol=http-rtsp 282 1
+protocol=httpaudio 1 3
+protocol=httpcachehit 1 4
+protocol=httpcachemiss 1 5
+protocol=httpvideo 1 6
+protocol=http 1 0
+
+protocol=100bao 261 0
+protocol=aim 81 1
+protocol=aimwebcontent 81 2
+protocol=applejuice 262 0
+protocol=ares 224 0
+protocol=armagetron 263 0
+protocol=audiogalaxy 264 0
+protocol=battlefield1942 265 0
+protocol=battlefield2 266 0
+protocol=battlefield2142 267 0
+protocol=bgp 59 0
+protocol=bittorrent 132 0
+
+# cimd is a subset of chikka, must be before
+protocol=cimd 269 0
+protocol=chikka 268 0
+
+protocol=ciscovpn 270 0
+protocol=citrix 230 0
+protocol=counterstrike-source 272 0
+protocol=cvs 273 0
+protocol=dayofdefeat-source 274 0
+protocol=dhcp 9 0
+protocol=directconnect 131 0
+protocol=dns 5 0
+protocol=doom3 38 0
+protocol=fasttrack 126 0
+protocol=freenet 277 0
+protocol=ftp 10 2
+protocol=gkrellm 278 0
+protocol=gnucleuslan 279 0
+protocol=gnutella 128 0
+protocol=goboogy 222 0
+protocol=gopher 23 0
+protocol=h323 280 0
+protocol=halflife2-deathmatch 45 0
+protocol=hddtemp 281 0
+protocol=hotline 56 0
+protocol=ident 24 0
+protocol=imap 19 0
+protocol=imesh 130 0
+protocol=ipp 212 0
+protocol=irc 57 0
+protocol=jabber 156 0
+protocol=kugoo 283 0
+protocol=live365 284 0
+protocol=liveforspeed 285 0
+protocol=lpd 286 0
+protocol=mohaa 287 0
+protocol=msn-filetransfer 152 0
+protocol=msnmessenger 152 0
+protocol=mute 288 0
+protocol=napster 124 2
+protocol=nbns 289 0
+protocol=ncp 165 0
+protocol=netbios 28 0
+protocol=nntp 25 0
+protocol=openft 292 0
+protocol=pcanywhere 164 0
+protocol=poco 293 0
+protocol=pop3 18 0
+protocol=pressplay 295 0
+protocol=qq 294 0
+protocol=quake-halflife 39 1
+protocol=quake1 39 0
+protocol=quicktime 1 7
+protocol=radmin 174 0
+protocol=rdp 179 0
+protocol=replaytv-ivs 204 0
+protocol=rlogin 75 0
+protocol=rtsp 30 0
+protocol=shoutcast 34 0
+protocol=sip 148 0
+protocol=smb 28 1
+protocol=smtp 15 0
+
+# snmp-mon and snmp-trap are subset of smnp,  must be before
+protocol=snmp-mon 26 1
+protocol=snmp-trap 26 2
+protocol=snmp 26 0
+
+protocol=socks 175 0
+protocol=soribada 221 0
+protocol=soulseek 218 0
+protocol=ssdp 120 0
+protocol=ssh 20 0
+
+# validcertssl is a subset of ssl, must be before
+protocol=validcertssl 121 1
+protocol=ssl 121 0
+
+protocol=stun 104 0
+protocol=subspace 105 0
+protocol=subversion 106 0
+protocol=teamfortress2 107 0
+protocol=teamspeak 108 0
+protocol=telnet 21 0
+protocol=tesla 109 0
+protocol=tftp 110 0
+protocol=thecircle 111 0
+protocol=tor 112 0
+protocol=uucp 114 0
+protocol=ventrilo 116 0
+protocol=vnc 180 0
+protocol=worldofwarcraft 52 0
+protocol=x11 82 0
+protocol=xboxlive 117 0
+protocol=xunlei 118 0
+protocol=yahoo 155 0
+protocol=zmaap 119 0
+
+# overmatching pattern (could give false positive) goes here
+protocol=biff 74 0
+protocol=edonkey 127 0
+# protocol=ntp 291 0
+protocol=rtp 125 0
+protocol=skypetoskype 163 1
+# protocol=skypeout 163 2
+# protocol=tsp 113 0
+# remove comment only in presence of port based classifier
+# protocol=finger 276 0
+# protocol=whois 22 0
+
+#malaware
+protocol=code_red 271 0
+protocol=nimda 290 0
+
+# file types
+# WARNING: see documentation about this pattern in class_l7.txt
+# protocol=exe 275 0
+# protocol=flash 275 1
+# protocol=gif 275 2
+# protocol=html 275 3
+# protocol=jpeg 275 4
+# protocol=mp3 275 5
+# protocol=ogg 275 6
+# protocol=pdf 275 7
+# protocol=perl 275 8
+# protocol=png 275 9
+# protocol=postscript 275 10
+# protocol=rar 275 11
+# protocol=rpm 275 12
+# protocol=rtf 275 13
+# protocol=tar 275 14
+# protocol=zip 275 15

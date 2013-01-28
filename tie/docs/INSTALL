@@ -1,0 +1,67 @@
+Installation
+============
+
+   TIE requires the libpcap library (downloadable at http://www.tcpdump.org). 
+   After libpcap is installed, it is possible to build TIE.
+
+   To build TIE:
+   -------------
+
+   $ tar zxvf tie_archive.tgz     # Extract sources from archive
+   $ cd tie/src                   # Change to sources folder
+   $ make                         # Build the whole application, WITH enabled plugins
+
+   All the needed files will be put in "tie/bin"
+
+   To install TIE into the system (root priviledges are needed):
+   -------------------------------
+   
+   # make install
+
+   By default this will put all files in "/opt/tie/" and will create symbolic links
+   from "/usr/local/bin/" to the executables in "/opt/tie/".
+   
+   To show further building options:
+   ---------------------------------
+
+   $ make help
+
+
+  Plugins
+  =======
+
+   Plugin source code must be placed in:
+
+    src/plugins/<plugin-name>
+
+
+   Selective building of plugins
+   -----------------------------
+
+   To enable plugin compilation from the main Makefile with the target
+   plugins, add <plugin-name> to
+
+    /src/plugins/enabled_plugins
+
+   Comments are prefixed with a '#': to deactivate a plugin, simply comment
+   out its name.
+
+
+   Example
+   -------
+
+   To install "port" plugin you should extract its package this way:
+
+   $ cd src/plugins
+   $ tar xzvf <path_to_package>/class_port-1.0.tgz
+
+   and then enable it by adding "port" to enabled_plugins:
+
+   $ echo port >> enabled_plugins
+
+
+   To build only plugins from TIE source dir:
+   -----------------------------------------
+
+   $ make plugins
+

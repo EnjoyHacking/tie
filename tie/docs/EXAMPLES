@@ -1,0 +1,67 @@
+
+Sample use
+====== ===
+
+   Here are some examples to show how to launch tie for different purposes.
+
+   IMPORTANT: Some classifier plugins will disable themselves (lamenting
+   "some requisites not satisfied") if needed options are not specified in
+   command line: check in plugin specific documentation if this happens.
+
+  Classification
+  ==============
+
+     * Capturing live traffic from a physical interface in realtime mode:
+
+  tie -m r -i eth0
+
+     * Reading traffic from a libpcap dump file in offline mode:
+
+  tie -m o -r traffic.pcap
+
+  Ground Truth Creation
+  =====================
+
+   To create a ground truth file based on deep packet inspection it is
+   necessary to enable a payload based classification plugin (e.g.
+   l7) editing bin/plugins/enabled_plugins file. Once enabled
+   classification can be launched using the following options:
+
+  tie -m o -r traffic.pcap -S 2048 -E traffic.gt
+
+   where "-S" option specifies how many payload bytes to collect for each
+   session and "-E" option specifies the ground truth file name.
+
+   NOTE: if -S option is not specified the l7 plugin will disable
+   itself because it can't obtain the features it needs
+
+  Evaluation of Classification through pre-classified data (e.g. ground-truth)
+  ============================================================================
+
+   To evaluate a classification technique implemented by a plugin it is
+   mandatory to have a pre-classification file, created before with some
+   other techniques (see Ground Truth Creation). After that it is necessary
+   to enable only the classification plugin to be tested (editing
+   bin/plugins/enabled_plugins) and launch TIE with the following options:
+
+  tie -m o -r traffic.pcap -E plugin_test.out
+
+   When the execution is terminated, it is possible to show the resulting
+   confusion matrix using the stats.pl script in the following manner:
+
+  stats.pl plugin_test.out traffic.gt
+
+  Training
+  ========
+
+   Some classification plugins could need a training phase. To train a
+   classification plugin under TIE it is mandatory to have a ground truth
+   file (see Ground Truth Creation). After that it is necessary to enable
+   only the classification plugin to be trained (editing
+   bin/plugins/enabled_plugins) and launch TIE with the following options:
+
+  tie -m o -r training_trace.pcap -e output/training_trace.gt -l 20
+
+   where the "-e" option specifies the ground truth file to use and the
+   "-l" option enables training (disabling classification) with a threshold
+   value to be used by the plugin to select sessions.
